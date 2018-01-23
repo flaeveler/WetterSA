@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <?php
-require __DIR__ .'/autoload.php';
+require __DIR__ . '/autoload.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,46 +24,61 @@ require __DIR__ .'/autoload.php';
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Wetter</a>
+                    <a class="navbar-brand" href="#">Wetter Schweiz</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form navbar-right">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                        <div class="form-group">                         
+                            <input type="text" class="form-control" placeholder="Suche nach Ort oder PLZ">
                         </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="submit" class="btn btn-default">Suchen</button>
                     </form>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
 
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">Favoriten</div>
-                <div class="col-md-6">Main weather</div>
-                <div class="col-md-3">Home Base, Local</div>
-            </div>
-            <div class="row" style="color: #ffffff;">
+            <!-- <div class="row wetter" style="color: black;">
+                <?php
+                ?>
+                <p>Aktueller Standort: <?= $arr['name'] ?></p>
+                <p>Wetter: <?= $arr['weather']['main'] ?></p>
+                <p>Wind: <?= $arr['wind']['speed'] ?></p>
+                <p>Aktuelle Temperatur: <?= $arr['main']['temp'] ?></p>
+                <p>Max Temperatur: <?= $arr['main']['temp_max'] ?></p>
+                <p>Min Temperatur: <?= $arr['main']['temp_min'] ?></p>
+                <p>Sonnenaufgang: <?= $arr['sys']['sunrise'] ?></p>
+                <p>Sonnenuntergang: <?= $arr['sys']['sunset'] ?></p>
+
+            </div> -->
+            <div class="row wetter" style="color: black;">
                 <?php
                 $city = $_POST['city'];
-                
+
                 $googleApi = new \API\GoogleAPI();
                 $zip = $googleApi->get($city);
-                
+
                 $weatherApi = new API\OpenWeatherAPI();
                 $arr = $weatherApi->get($zip);
-                
-                
-               /* $json = file_get_contents('http://api.openweathermap.org/data/2.5/weather?zip='.$plz.',ch&appid=18762d3e06a1a76e06d5535409aa6eea');
+
+
+                /*$json = file_get_contents('http://api.openweathermap.org/data/2.5/weather?zip=' . $plz . ',ch&appid=18762d3e06a1a76e06d5535409aa6eea');
                 $arr = json_decode($json, true);
                 echo '<pre>', print_r($arr, true), '</pre>';*/
                 ?>
                 <p>Ort: <?= $arr['name'] ?></p>
-                <p>Wind: <?= $arr['wind']['speed'] ?></p>   
+                <p>Wetter: <?= $arr['weather']['main'] ?></p>
+                <p>Wind: <?= $arr['wind']['speed'] ?></p>
+                <p>Aktuelle Temperatur: <?= $arr['main']['temp'] ?></p>
+                <p>Max Temperatur: <?= $arr['main']['temp_max'] ?></p>
+                <p>Min Temperatur: <?= $arr['main']['temp_min'] ?></p>
+                <p>Sonnenaufgang: <?= $arr['sys']['sunrise'] ?></p>
+                <p>Sonnenuntergang: <?= $arr['sys']['sunset'] ?></p>
+
                 <form action="/" method="post" style="color:black;">
-                    <input type="text" placeholder="city" name="city">
+                    <input type="text" placeholder="Suche nach Ort oder PLZ" name="Ort">
                     <button type="submit">
                         Send
                     </button>
