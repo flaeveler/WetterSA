@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,7 +15,7 @@ namespace API;
  */
 class OpenWeatherAPI {
      public function get($input) {
-        $url = 'http://api.openweathermap.org/data/2.5/weather?zip='.$input.',ch&appid=18762d3e06a1a76e06d5535409aa6eea';
+        $url = "http://api.openweathermap.org/data/2.5/weather?zip=".$input.",ch&units=metric&lang=de&appid=484cf3512b934c59262c15ea71087ed9";
         $json = file_get_contents($url);
         $arr = json_decode($json, true);
         

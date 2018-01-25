@@ -5,7 +5,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <?php
-require __DIR__ .'/autoload.php';
+require __DIR__ . '/autoload.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,25 +49,58 @@ require __DIR__ .'/autoload.php';
             <div class="row">
                 <div class="col-md-3">Favoriten</div>
                 <div class="col-md-6">Main weather</div>
-                <div class="col-md-3">Home Base, Local</div>
+                <div class="col-md-3">Home Base, Local
+                    <div id="login">
+                        <form action="login.php" method="post">
+                            <p>
+                                <label>Username:</label>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="username" >
+                            </p>
+                            <p>
+                                <label>Password:</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="password" >
+                            </p>
+<!--                            <p>
+                                <label>Confirm Password:</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="password" >
+                            </p>-->
+                            <p>
+
+                                <input type="submit" value="login" name="submit" class="btn btn-primary">
+                            </p>
+                            <p>
+                                Not yet a member? <a href="registery.php">Sign up</a>
+                            </p>                
+
+
+                        </form>
+
+                    </div>
+                </div>
+                <div id="openweathermap-widget-11"></div>
+                 
             </div>
-            <div class="row" style="color: #ffffff;">
+            <div class = "row" style = "color: #ffffff;">
                 <?php
-                $city = $_POST['city'];
-                
+                $city = $_POST["city"];
+
                 $googleApi = new \API\GoogleAPI();
                 $zip = $googleApi->get($city);
-                
+
                 $weatherApi = new API\OpenWeatherAPI();
                 $arr = $weatherApi->get($zip);
-                
-                
-               /* $json = file_get_contents('http://api.openweathermap.org/data/2.5/weather?zip='.$plz.',ch&appid=18762d3e06a1a76e06d5535409aa6eea');
-                $arr = json_decode($json, true);
-                echo '<pre>', print_r($arr, true), '</pre>';*/
+
+
+                /* $json = file_get_contents('http://api.openweathermap.org/data/2.5/weather?zip='.$plz.',ch&appid=18762d3e06a1a76e06d5535409aa6eea');
+                  $arr = json_decode($json, true);
+                  echo '<pre>', print_r($arr, true), '</pre>'; */
                 ?>
-                <p>Ort: <?= $arr['name'] ?></p>
-                <p>Wind: <?= $arr['wind']['speed'] ?></p>   
+                <p>Ort: <?= $arr["name"] ?></p>
+                <p>Wind: <?= $arr["wind"]["speed"] ?> m/s</p>  
+                <p>Wetter: <?= $arr["weather"]["0"]["description"] ?></p>
+                <p>Temperatur: <?= $arr["main"]["temp"] ?> Grad Celsius</p> 
+                <p>bild: <?= $arr["weather"]["0"]["icon"] ?> </p>
+                
                 <form action="/" method="post" style="color:black;">
                     <input type="text" placeholder="city" name="city">
                     <button type="submit">
